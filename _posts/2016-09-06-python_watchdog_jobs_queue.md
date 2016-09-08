@@ -25,7 +25,7 @@ The threading and queue libraries provides a high level interface to manage thre
 
 The code is in a git repo here with a simple example.
     
-So lets walk through the code:
+So lets walk through the code. Lets start with the main bit, here we instantiate a Queue object, a thread object and run it in daemon mode and instantiate a watchdog. Lastly we place a second poll that waits for a `ctrl-C` kill command and if it recieves one shuts everything down gracefully.
 
 ```python
  	if __name__ == '__main__':
@@ -54,74 +54,73 @@ So lets walk through the code:
 	
 	    observer.join()
 ```
+We also define a worker thread. The worker thread is intended to be a backgrounded process running indefinitely so we use an always true `while` statement. The worker thread then "polls" the queue every second, checking if any jobs have been placed on it.
 
- 1. Lets start with the main bit, here we instantiate a Queue object, a thread object and run it in daemon mode and instantiate a watchdog. Lastly we place a second poll that waits for a `ctrl-C` kill command and if it recieves one shuts everything down gracefully.
+
+```python
+
+	def process_load_queue(q):
+	    '''This is the worker thread function. It is run as a daemon threads that only exit when
+	       the main thread ends.
+	
+	       Args
+	       ==========
+	         q:  Queue() object
+	    '''
+	    while True:
+	        if not q.empty():
+	            event = q.get()
+	            print "{0} -- Pulling {1} off the queue ...".format(datetime.datetime.utcnow().strftime("%Y/%m/%d %H:%M:%S"), event.dest_path)
+	            log_path = os.path.join(os.environ["db_logging"], monetdb_load." + datetime.datetime.utcnow().strftime("%Y%m%d") + ".out")
+	            with open(log_path, "a") as f:
+	                f.write(datetime.datetime.utcnow().strftime("%Y/%m/%d %H:%M:%S") + "-- Processing {0}...\n".format(event.dest_path))
+	            cmd = "cat {0} | while read command; do ${{command}}; done >> {1} 2>&1".format(event.dest_path, log_path)
+	            subprocess.call(cmd, shell=True)
+	            os.remove(event.dest_path)
+	            with open(log_path, "a") as f:
+	                f.write(datetime.datetime.utcnow().strftime("%Y/%m/%d %H:%M:%S") + "-- Finished processing {0}...\n".format(event.dest_path))
+	            print "{0} -- Finished and sleeping ...".format(datetime.datetime.utcnow().strftime("%Y/%m/%d %H:%M:%S"))
+	            time.sleep(10)
+	            print "Awake!"
+	        else:
+	            time.sleep(1)
+
+```
+
+We also define a watchdog class, inheriting from the Watchdog `PatternMatchingEventHandler` class. In this code our watchdog will only be triggered if a file is moved to have a `.trigger` extension. Once triggered the watchdog places the event object on the queue, ready to be picked up by the worker thread
  
-	```python
-	
-		def process_load_queue(q):
-		    '''This is the worker thread function. It is run as a daemon threads that only exit when
-		       the main thread ends.
-		
-		       Args
-		       ==========
-		         q:  Queue() object
-		    '''
-		    while True:
-		        if not q.empty():
-		            event = q.get()
-		            print "{0} -- Pulling {1} off the queue ...".format(datetime.datetime.utcnow().strftime("%Y/%m/%d %H:%M:%S"), event.dest_path)
-		            log_path = os.path.join(os.environ["db_logging"], monetdb_load." + datetime.datetime.utcnow().strftime("%Y%m%d") + ".out")
-		            with open(log_path, "a") as f:
-		                f.write(datetime.datetime.utcnow().strftime("%Y/%m/%d %H:%M:%S") + "-- Processing {0}...\n".format(event.dest_path))
-		            cmd = "cat {0} | while read command; do ${{command}}; done >> {1} 2>&1".format(event.dest_path, log_path)
-		            subprocess.call(cmd, shell=True)
-		            os.remove(event.dest_path)
-		            with open(log_path, "a") as f:
-		                f.write(datetime.datetime.utcnow().strftime("%Y/%m/%d %H:%M:%S") + "-- Finished processing {0}...\n".format(event.dest_path))
-		            print "{0} -- Finished and sleeping ...".format(datetime.datetime.utcnow().strftime("%Y/%m/%d %H:%M:%S"))
-		            time.sleep(10)
-		            print "Awake!"
-		        else:
-		            time.sleep(1)
-	
-	```
 
- 2. We also define a worker thread. The worker thread is intended to be a backgrounded process running indefinitely so we use an always true `while` statement. The worker thread then "polls" the queue every second, checking if any jobs have been placed on it.
+```python
 
-	```python
+	class SqlLoaderWatchdog(PatternMatchingEventHandler):
+	    ''' Watches a nominated directory, when a trigger file is moved to take the ".trigger" extension
+	        it proceeds to execute the commands within that trigger file.
 	
-		class SqlLoaderWatchdog(PatternMatchingEventHandler):
-		    ''' Watches a nominated directory, when a trigger file is moved to take the ".trigger" extension
-		        it proceeds to execute the commands within that trigger file.
-		
-		    Notes
-		    ============
-		    Intended to be run in the background
-		    and pickup trigger files generated by the "${AI_MP}/intermediate_to_monetdb.mp" abinitio graph.
-		    '''
-		
-		    def __init__(self, queue, patterns):
-		        PatternMatchingEventHandler.__init__(self, patterns=patterns)
-		        self.queue = queue
-		
-		    def process(self, event):
-		        '''
-		        event.event_type
-		            'modified' | 'created' | 'moved' | 'deleted'
-		        event.is_directory
-		            True | False
-		        event.src_path
-		            path/to/observed/file
-		        '''
-		        self.queue.put(event)
-		
-		    def on_moved(self, event):
-		        self.process(event)
-		        
-	```
- 
- 3. We also define a watchdog class, inheriting from the Watchdog `PatternMatchingEventHandler` class. In this code our watchdog will only be triggered if a file is moved to have a `.trigger` extension. Once triggered the watchdog places the event object on the queue, ready to be picked up by the worker thread
+	    Notes
+	    ============
+	    Intended to be run in the background
+	    and pickup trigger files generated by the "${AI_MP}/intermediate_to_monetdb.mp" abinitio graph.
+	    '''
+	
+	    def __init__(self, queue, patterns):
+	        PatternMatchingEventHandler.__init__(self, patterns=patterns)
+	        self.queue = queue
+	
+	    def process(self, event):
+	        '''
+	        event.event_type
+	            'modified' | 'created' | 'moved' | 'deleted'
+	        event.is_directory
+	            True | False
+	        event.src_path
+	            path/to/observed/file
+	        '''
+	        self.queue.put(event)
+	
+	    def on_moved(self, event):
+	        self.process(event)
+	        
+```
  
   
 	
