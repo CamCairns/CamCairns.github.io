@@ -13,6 +13,12 @@ There are lots of great resources out there on what Docker is and how to start u
 
 ![You will love this whale](/images/docker.png)
 
+{% include image.html
+            img="/images/docker.png"
+            title="title for image"
+            caption="caption for image" %}
+
+
 ## Why is it Awesome for Data Science?
 
 ### 1. Puts the power of tool selection and configuration back into the hands of the users
@@ -44,7 +50,7 @@ Docker means you can configure and create an entire filesystem that is 100% repl
 
 One of the most frustrating things about trying a new piece of OSS (or any software product) is getting it installed properly. Library mismatches or incompatibilities, envirornment configuration, compiler problems etc. all meant that often a significant amount of time and effort would need to be spent getting something to work before you could even begin to assess whether is was useful or not.
 
-![http://xkcd.com/1742/](/images/will_it_work.png)
+![http://xkcd.com/1742/](/images/will_it_work.png){: .center-image }
 
 Not anymore! Pick an open-source tool and chances are that someone will have created an image  that encapsulates a working version of that tool. It takes on the order of $$10^1-10^2$$ seconds to have a working environment to try that tool and see if it can help you do your job better. The time barrier involved in getting something to work before you can try it has almost completely evaporated.
 
