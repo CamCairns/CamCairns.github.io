@@ -7,19 +7,13 @@ categories: [docker, datascience, agile]
 
 Docker has been a hot topic for quite some time now. I have been using Docker every day at work as a core component of my development, analysis and modelling workflow for around 7 months now and Dockerized applications act as a key vehicle of delivery for the Data Science department in which I work. I really like Docker and I thought I'd take an opportunity to step back and explain a couple of reasons why I love Docker and think it's a great tool for use in Data Science. 
 
-## What is Docker?
+### What is Docker?
 
 There are lots of great resources out there on what Docker is and how to start using it so I want rehash any of that old stuff. The typical way to describe Docker is as a tool for building and deploying fully contained filesystems. The "fully contained filesystems" are called Docker containers and contain everything that is needed to run: code, runtime, system tools, system libraries – anything you can install on a server.
 
 ![You will love this whale](/images/docker.png)
 
-{% include image.html
-            img="/images/docker.png"
-            title="title for image"
-            caption="caption for image" %}
-
-
-## Why is it Awesome for Data Science?
+### Why is it Awesome for Data Science?
 
 ### 1. Puts the power of tool selection and configuration back into the hands of the users
 

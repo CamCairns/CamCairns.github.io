@@ -1,8 +1,8 @@
 title: Dancing with Data
-description: A little blog to document things I've learnt, things I've done and things I'd like to do
+description: "A little blog to document things I've learnt, things I've done and things I'd like to do"
 author: Cam Cairns
 github: https://github.com/camcairns
-about: I am a "data scientist" - my current work sees me spanning data engineering and data analytics
+about: "Love all things data. Experience in data engineering, model building and development, machine learning, data viz, automation and model deployment"
 disqus_shortname: dancingwithdata
 google_analytics: UA-XXXXXXXX-Y
 
@@ -15,20 +15,20 @@ collections:
     permalink: /project/:path/
 
 social:
-    - icon: fa-facebook
-      link: "#"
+    # - icon: fa-facebook
+    #   link: "#"
     - icon: fa-skype
-      link: "#"
+      link: "cam.cairns1"
     - icon: fa-twitter
-      link: "https://twitter.com/agusmakmun6"
+      link: "https://twitter.com/CairnsCam"
     - icon: fa-linkedin
-      link: "#"
-    - icon: fa-stack-exchange
-      link: "#"
+      link: "https://uk.linkedin.com/in/cameron-cairns-6975a172"
+    # - icon: fa-stack-exchange
+    #   link: "#"
 
 share:
-  twitter_username: agusmakmun6
-  fb_appid: 1749788565247320
+  twitter_username: cairnscam
+  # fb_appid: 1749788565247320
 
 urls:
     - text: About Me
@@ -37,8 +37,8 @@ urls:
       url: /projects/
     - text: Github
       url: https://github.com/camcairns
-    - text: XML Feed
-      url: /feed.xml
+    # - text: XML Feed
+    #   url: /feed.xml
 
 url: "https://camcairns.github.io"
 baseurl: ""
