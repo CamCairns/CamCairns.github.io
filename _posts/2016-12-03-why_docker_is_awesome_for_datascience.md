@@ -48,7 +48,8 @@ One of the most frustrating things about trying a new piece of OSS (or any softw
 {: .center}
 {%include image.html
 img="/assets/posts/2016-12-03-why_docker_is_awesome_for_datascience/will_it_work.png"
-title="http://xkcd.com/1742/](/images/will_it_work.png"
+title="http://xkcd.com/1742/"
+url="http://xkcd.com/1742/"
 caption="Very true"%}
 
 Not anymore! Pick an open-source tool and chances are that someone will have created an image  that encapsulates a working version of that tool. It takes on the order of $$10^1-10^2$$ seconds to have a working environment to try that tool and see if it can help you do your job better. The time barrier involved in getting something to work before you can try it has almost completely evaporated.
