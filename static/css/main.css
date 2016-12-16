@@ -219,18 +219,6 @@ div.col-sm-3 img#about {
       border-radius: 11px;
     }
 
-.image-wrapper {
-    text-align: center;
-
-    .image-caption {
-        color: $grey-color;
-        font-weight: bold;
-        font-size: 110%;
-        margin-top: $spacing-unit / 3;
-        margin-bottom: $spacing-unit / 3;
-    }
-}
-
 .share-page {
     padding: 10px 10px 5px;
     border-top: 1px solid #f0f0f0;
