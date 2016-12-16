@@ -2,7 +2,8 @@
  * Master styling
  */
 body {
-    font-family: "Roboto Condensed", Arial, sans-serif;
+    /*font-family: "Roboto Condensed", Arial, sans-serif;*/
+    font-family: "Droid Sans", Arial, sans-serif;
     background-color: #fff;
     font-size: 16px;
     line-height: 1.5em;
@@ -38,7 +39,7 @@ h2 {
     margin-bottom: 5px;
     color: #666666;
 }
-        
+
 h3 {
     font-weight: normal;
     margin-bottom: 5px;
@@ -74,7 +75,7 @@ div.right {
     width: 500px;
     float: left;
 }
-           
+
 div.content {
     border-top: 1px solid #E6E6E6;
     margin-top: 5px;
