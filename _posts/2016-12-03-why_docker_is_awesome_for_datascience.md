@@ -52,7 +52,8 @@ title="http://xkcd.com/1742/](/images/will_it_work.png"
 caption="Very true" 
 %}-->
 
-![foo](/images/will_it_work.png){: .center-image }
+{: .center}
+![foo](/images/will_it_work.png)
 
 Not anymore! Pick an open-source tool and chances are that someone will have created an image  that encapsulates a working version of that tool. It takes on the order of $$10^1-10^2$$ seconds to have a working environment to try that tool and see if it can help you do your job better. The time barrier involved in getting something to work before you can try it has almost completely evaporated.
 
