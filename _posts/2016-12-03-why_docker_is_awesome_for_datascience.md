@@ -46,6 +46,11 @@ Docker means you can configure and create an entire filesystem that is 100% repl
 
 One of the most frustrating things about trying a new piece of OSS (or any software product) is getting it installed properly. Library mismatches or incompatibilities, envirornment configuration, compiler problems etc. all meant that often a significant amount of time and effort would need to be spent getting something to work before you could even begin to assess whether is was useful or not.
 
+{% include image.html
+img="/images/will_it_work.png"
+title="http://xkcd.com/1742/](/images/will_it_work.png"
+caption="Very true" %}
+
 {: .center}
 ![foo](/images/will_it_work.png)
 
