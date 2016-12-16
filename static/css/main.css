@@ -219,6 +219,12 @@ div.col-sm-3 img#about {
       border-radius: 11px;
     }
 
+.center-image
+{
+    margin: 0 auto;
+    display: block;
+}
+
 .share-page {
     padding: 10px 10px 5px;
     border-top: 1px solid #f0f0f0;

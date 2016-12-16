@@ -46,11 +46,13 @@ Docker means you can configure and create an entire filesystem that is 100% repl
 
 One of the most frustrating things about trying a new piece of OSS (or any software product) is getting it installed properly. Library mismatches or incompatibilities, envirornment configuration, compiler problems etc. all meant that often a significant amount of time and effort would need to be spent getting something to work before you could even begin to assess whether is was useful or not.
 
-{% include image.html
+<!--{% include image.html
 img="/images/will_it_work.png"
 title="http://xkcd.com/1742/](/images/will_it_work.png"
 caption="Very true" 
-%}
+%}-->
+
+![foo](/images/will_it_work.png){: .center-image }
 
 Not anymore! Pick an open-source tool and chances are that someone will have created an image  that encapsulates a working version of that tool. It takes on the order of $$10^1-10^2$$ seconds to have a working environment to try that tool and see if it can help you do your job better. The time barrier involved in getting something to work before you can try it has almost completely evaporated.
 
