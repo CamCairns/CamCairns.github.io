@@ -12,8 +12,8 @@ Docker has been a hot topic for quite some time now. I have been using Docker ev
 There are lots of great resources out there on what Docker is and how to start using it so I want rehash any of that old stuff. The typical way to describe Docker is as a tool for building and deploying fully contained filesystems. The "fully contained filesystems" are called Docker containers and contain everything that is needed to run: code, runtime, system tools, system libraries – anything you can install on a server.
 
 {: .center}
-{%include image.html img="/images/docker.png" caption="You will love this whale..."%}
-        
+{%include image.html img="/assets/posts/2016-12-03-why_docker_is_awesome_for_datascience/docker.png" caption="You will love this whale..."%}
+
 ### Why is it Awesome for Data Science?
 
 ### 1. Puts the power of tool selection and configuration back into the hands of the users
@@ -47,7 +47,7 @@ One of the most frustrating things about trying a new piece of OSS (or any softw
 
 {: .center}
 {%include image.html
-img="/images/will_it_work.png"
+img="/assets/posts/2016-12-03-why_docker_is_awesome_for_datascience/will_it_work.png"
 title="http://xkcd.com/1742/](/images/will_it_work.png"
 caption="Very true"%}
 
