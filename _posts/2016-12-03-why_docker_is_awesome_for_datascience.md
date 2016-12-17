@@ -9,7 +9,7 @@ Docker has been a hot topic for quite some time now. I have been using Docker ev
 
 ### What is Docker?
 
-There are lots of great resources out there on what Docker is and how to start using it so I want rehash any of that old stuff. The typical way to describe Docker is as a tool for building and deploying fully contained filesystems. The "fully contained filesystems" are called Docker containers and contain everything that is needed to run: code, runtime, system tools, system libraries – anything you can install on a server.
+There are lots of great resources out there on what Docker is and how to start using it so I wont rehash any of that old stuff. The typical way to describe Docker is as a tool for building and deploying fully contained filesystems. The "fully contained filesystems" are called Docker containers and contain everything that is needed to run: code, runtime, system tools, system libraries – anything you can install on a server.
 
 {: .center}
 {%include image.html img="/assets/posts/2016-12-03-why_docker_is_awesome_for_datascience/docker.png" caption="You will love this whale..."%}
