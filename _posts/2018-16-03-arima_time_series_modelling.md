@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "ARIMA Time Series Modelling"
-date:   2017-09-06
+date:   2018-16-03
 categories: [python, ARIMA, time series]
 ---
 
