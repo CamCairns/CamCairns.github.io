@@ -45,7 +45,53 @@ A lot more information about the article can be pulled out, but for the classica
 
 ### What modelling approach did we take?
 
-For this post we just apply a simple 'bag-of-words' and a Bernoulli Naive Bayes classifer. We perform a cross-validation parameter sweep over the smoothing parameter $\alpha$ parameter and pick the parameter that optimises mean-accuracy.
+For this post we just apply a simple 'bag-of-words' and a Bernoulli Naive Bayes classifer. We perform a cross-validation parameter sweep over the smoothing parameter $$\alpha$$ parameter and pick the parameter that optimises mean-accuracy.
+
+#### Bayes Law
+
+To understand the Naive Bayes algorithm we first need to understand Bayes Law. Bayes Law is easily derived and describes how a conditional probability $$p(A \vert B)$$ is related to $$p(B \vert A)$$
+
+$$
+p(A|B) = \frac{p(B|A)p(A)}{p(B)}
+$$
+
+assuming $$p(B) \ne 0$$. In the formula above:
+
+* $$P(A \vert B)$$ (the likelihood of event $$A$$ occurring given $$B$$ is true) is known as the *posterior*. It is the degree of belief in $$A$$ having accounted for $$B$$.
+* $$P(A)$$ is the *prior*, what is our initial understanding of the probability of $$A$$ absent any knowledge of $$B$$.
+* $$\frac{P(A \vert B)}{P(B)}$$ is the *scaled likelihood*, and represents support obervation $$B$$ provides for $$A$$.
+
+#### Use in text classification 
+
+Ok, but how does this relate to text classification? Suppose the word "football" appears in an article, this probably adds to the likelihood that the article has been filed under the "Sports" desk, but by how much? Well we can use Bayes Law to tell us 
+
+$$
+p(\text{Sports} \vert \text{football}) = \frac{p(\text{football} \vert \text{Sports})p(\text{Sports})}{p(\text{football})}
+$$
+
+The RHS of the equation we can compute with enough pre-labeled data
+
+* $$p(\text{football} \vert \text{Sports})$$ is just the probability that the word "football" appears in an article under the Sports desk. We can actually get an idea of this by running a `grep` on the NYT Sports corpus
+
+		>> grep -r "football" Sports/ | wc -l
+		208
+
+	so 	$$p(\text{football} \vert \text{Sports}) = 208/1010 = 0.21$$ 
+* $$p(\text{Sports})$$ is the probability that the article under the Sports desk. In our NYT corpus each of the 5 categories has an equal number of articles so $$p(\text{Sports}) = 0.2$$.
+* $$p(\text{footbal})$$ is the probability that any article contains the word "football". Again, in our NYT corpus we can find this just by using `grep`
+
+		>> grep -r "football" . | wc -l
+		353
+
+	so 	$$p(\text{football}) = 353/1010 = 0.35$$ 
+
+All together
+
+$$
+p(\text{Sports} \vert \text{football}) = \frac{0.21 \cdot 0.25}{0.35} = 0.12
+$$
+
+Is that right?
 
 ### What were the results?
 
