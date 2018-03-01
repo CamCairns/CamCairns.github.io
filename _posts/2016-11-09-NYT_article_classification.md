@@ -138,7 +138,7 @@ Doing a parameter sweep over the smoothing parameter using a 3-fold cv grid sear
 
 {: .center}
 {%include image.html
-img="/assets/posts/2016-11-09-NYT_article_classification/alpha_parameter_tuning.png" %}
+img="/assets/posts/2016-11-09-NYT_article_classification/alpha_parameter_tuning2.png" %}
 
 We see a value of `alpha=0.13` optimises accuracy in this case.
 
@@ -146,14 +146,34 @@ Scoring on the hold out test set we get an accuracy of 0.94, not too bad for a v
 
 {: .center}
 {%include image.html
-img="/assets/posts/2016-11-09-NYT_article_classification/confusion_matrix.png"
+img="/assets/posts/2016-11-09-NYT_article_classification/confusion_matrix2.png"
 title="Confusion Matrix"
 caption="Proportional Confusion Matrix"%}
 
 Interestingly we see that we are classifying Sports and World desks at a > 98% accuracy, however the Arts desk articles are liable to be mislabeled, particularly as either Obituaries or World. This is perhaps not entirely suprising.
 
-We are also able to look at what words contribute most to classifying an Article as a particular desk.
+We are also able to look at what words contribute most to classifying an Article as a particular desk (see table below). We do this by defining a "discrimination metric" $$D$$ that measures how much predictive power a work has for one class, relative to all the other classes. 
+
+$$
+D = \frac{1}{N} \sum_i^N \left( P(\text{word} | C_0) - P(\text{word} | C_i) \right)
+$$
+
+Words are then sorted by there absolute value. We use absolute value because words can be discrimating either because of there presence (+) or absense (-).
+
+{: .center}
+{%include image.html
+img="/assets/posts/2016-11-09-NYT_article_classification/most_predictive_words.png"
+caption="Most Predictive Words"%}
+
+It is worth having a look at a few of these words
+
+* In the Arts desk unsurprisingly *music*, *art*, *work*, *review* and *show* all make an appearance. Perhaps a bit more of a suprise are the predictive power of the female pronouns *ms*, *her* and *she*. What seems to be going on here is that the Arts articles are more likely to be about women than the articles coming from other desks. Also the word *said* has a negative probability (ie. the word said is much more likely to appear in non-Art articles than Art articles)
+*  The Business is fairly obvious too. Words of commerce like *millions*, *billions*, *financial*, *chief*, *executive*, *investors* are all very predictive of business articles. Interesting the male pronoun *him* also appears here, ppinting at the male dominated nature of the business articles scraped.
+*  The Obituaries articles is straightforward *life* and *death*, *born*, *survived* all appear.
+*  Interesting the most discrimnating word in the Sports desk is *mr*. I'd suggest that this is because sportpeople are almost never referred to with an honorific. The rest of the words refer to generic sporting terminology (*game*, *team*, *season* etc.) or to victory (*won*, *win*).
+*  The most discriminating words in the World articles are those that refer to poltics and apparatus of state (*government*, *minister*, *president*, *military* etc). Interestingly *united* and *state* is also strongly discrimating showing the common occurence of the USA in these articles (which is not too suprising given it is a US newspaper and the USA is a dominant actor on the world stage.)
 
 ### References
 
-Add references here.
+* Doing Data Science, *Cathy O'Neil \& Rachel Schutt*, pg. 98-104, O'Reilly (2014)
+* [Naive Bayes sklearn docs](http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes)
