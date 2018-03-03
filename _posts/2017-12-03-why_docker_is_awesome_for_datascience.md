@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Why Docker is Awesome For Data Science"
-date:   2016-10-21
+date:   2017-10-21
 categories: [docker, datascience, agile]
 ---
 

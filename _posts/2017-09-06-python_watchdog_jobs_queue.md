@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "A Python Watchdog with Threaded Queuing"
-date:   2016-09-06
+date:   2017-09-06
 categories: [python]
 ---
 
